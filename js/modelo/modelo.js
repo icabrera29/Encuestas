@@ -31,12 +31,14 @@ Modelo.prototype = {
 
   //se agrega una pregunta dado un nombre y sus respuestas
   agregarPregunta: function(nombre, respuestas) {
-    var id = this.obtenerUltimoId();
-    id++;
-    var nuevaPregunta = {'textoPregunta': nombre, 'id': id, 'cantidadPorRespuesta': respuestas};
-    this.preguntas.push(nuevaPregunta);    
-    this.guardar();  
-    this.preguntaAgregada.notificar();  
+    if(nombre && respuestas){
+      var id = this.obtenerUltimoId();
+      id++;
+      var nuevaPregunta = {'textoPregunta': nombre, 'id': id, 'cantidadPorRespuesta': respuestas};
+      this.preguntas.push(nuevaPregunta);    
+      this.guardar();  
+      this.preguntaAgregada.notificar();  
+    }    
   },
   borrarPregunta: function(id){
     this.preguntas.splice(id,1);    
@@ -44,9 +46,11 @@ Modelo.prototype = {
     this.preguntaBorrada.notificar();
   },
   editarPregunta: function(id, preguntaEditada){
-    this.preguntas[id].textoPregunta = preguntaEditada;    
-    this.guardar();
-    this.preguntaEditada.notificar();
+    if(preguntaEditada){
+      this.preguntas[id].textoPregunta = preguntaEditada;    
+      this.guardar();
+      this.preguntaEditada.notificar();
+    }    
   },
   borrarTodo: function(){
     this.preguntas = [];       
@@ -56,12 +60,14 @@ Modelo.prototype = {
   obtenerPregunta: function(nombrePregunta){
     return this.preguntas.filter(p => p.textoPregunta == nombrePregunta);
   },
-  agregarVoto: function(pregunta, respuestaSeleccionada){
-    var i = 0;
-    var respuesta = pregunta[i].cantidadPorRespuesta.filter(resp => resp.textoRespuesta == respuestaSeleccionada);
-    respuesta[i].cantidad += 1; 
-    this.guardar();
-    this.votoAgregado.notificar();
+  agregarVoto: function(pregunta, respuestaSeleccionada, nombreUsuario){
+    if(pregunta, respuestaSeleccionada, nombreUsuario){
+      var i = 0;
+      var respuesta = pregunta[i].cantidadPorRespuesta.filter(resp => resp.textoRespuesta == respuestaSeleccionada);
+      respuesta[i].cantidad += 1; 
+      this.guardar();
+      this.votoAgregado.notificar();
+    }   
   },
   guardar: function(){
     localStorage.setItem('preguntas', JSON.stringify(this.preguntas));

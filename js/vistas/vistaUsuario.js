@@ -78,15 +78,13 @@ VistaUsuario.prototype = {
   agregarVotos: function(){
     var contexto = this;
     $('#preguntas').find('div').each(function(){
-        var nombrePregunta = $(this).attr('value')
-        //console.log(nombrePregunta);
-        var id = $(this).attr('id')
+        var nombreUsuario = contexto.elementos.nombreUsuario.val();
+        var nombrePregunta = $(this).attr('value');
+        var id = $(this).attr('id');
         var pregunta = contexto.modelo.obtenerPregunta(nombrePregunta);
-        //console.log(pregunta);
         var respuestaSeleccionada = $('input[name=' + id + ']:checked').val();
         $('input[name=' + id + ']').prop('checked',false);
-        //console.log(respuestaSeleccionada);
-        contexto.controlador.agregarVoto(pregunta, respuestaSeleccionada);
+        contexto.controlador.agregarVoto(pregunta, respuestaSeleccionada, nombreUsuario);
       });
   },
 

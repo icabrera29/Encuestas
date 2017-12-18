@@ -18,7 +18,7 @@ Controlador.prototype = {
   borrarTodo: function(){
   	this.modelo.borrarTodo();
   },
-  agregarVoto: function(pregunta, respuestaSeleccionada){
-    this.modelo.agregarVoto(pregunta, respuestaSeleccionada);
+  agregarVoto: function(pregunta, respuestaSeleccionada, nombreUsuario){
+    this.modelo.agregarVoto(pregunta, respuestaSeleccionada, nombreUsuario);
   }	
 };
