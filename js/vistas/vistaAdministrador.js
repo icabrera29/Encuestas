@@ -7,7 +7,6 @@ var VistaAdministrador = function(modelo, controlador, elementos) {
   this.elementos = elementos;
   var contexto = this;
 
-  // suscripción de observadores
   this.modelo.preguntaAgregada.suscribir(function() {
     contexto.reconstruirLista();
   });
@@ -24,9 +23,7 @@ var VistaAdministrador = function(modelo, controlador, elementos) {
 
 
 VistaAdministrador.prototype = {
-  //lista
   inicializar: function() {
-    //llamar a los metodos para reconstruir la lista, configurar botones y validar formularios
     this.reconstruirLista();
     this.configuracionDeBotones();
   },
@@ -34,8 +31,6 @@ VistaAdministrador.prototype = {
   construirElementoPregunta: function(pregunta){
     var contexto = this;
     var nuevoItem = $('<li class="list-group-item" id="'+ pregunta.id +'"></li>');
-    //completar
-    //asignar a nuevoitem un elemento li con clase "list-group-item", id "pregunta.id" y texto "pregunta.textoPregunta"
     var interiorItem = $('.d-flex');
     var titulo = interiorItem.find('h5');
     titulo.text(pregunta.textoPregunta);
@@ -68,7 +63,6 @@ VistaAdministrador.prototype = {
          respuestas.push({'textoRespuesta': $(this).val(), 'cantidad': 0}); 
       });
      
-      //Hacer validacion para que no se cree un elemento vacio
       contexto.controlador.agregarPregunta(value, respuestas);
       contexto.limpiarFormulario();
       });

@@ -19,7 +19,6 @@ var Modelo = function() {
 };
 
 Modelo.prototype = {
-  //se obtiene el id más grande asignado a una pregunta
   obtenerUltimoId: function() {
     var maxId = -1;
     for(var i=0;i<this.preguntas.length;++i){
@@ -29,7 +28,6 @@ Modelo.prototype = {
     return maxId;
   },
 
-  //se agrega una pregunta dado un nombre y sus respuestas
   agregarPregunta: function(nombre, respuestas) {
     if(nombre && respuestas){
       var id = this.obtenerUltimoId();
@@ -41,7 +39,10 @@ Modelo.prototype = {
     }    
   },
   borrarPregunta: function(id){
-    this.preguntas.splice(id,1);    
+    //this.preguntas.splice(id,1);
+    this.preguntas = this.preguntas.filter(function(pregunta) {
+      return pregunta.id != id;
+    });     
     this.guardar();
     this.preguntaBorrada.notificar();
   },
